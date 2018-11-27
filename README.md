@@ -4,6 +4,11 @@ with Concurrently running front-back ends
 go to tkv-master 
 
 npm install
+npm run install-client
+npm run install-server
+
+-----------------------------------------------------
+to start React and Server
 
 npm run dev     : run both client and server
 
