@@ -13,19 +13,14 @@ with Concurrently running front-back ends
  
 **to start React and server**
 
- **npm run dev**
- 
- run both client and server concurrently
+ **npm run dev**    :   run both client and server concurrently
  
  
- **npm run client**  
  
- run only client
+ **npm run client**     :  run only client
  
  
- **npm run server** 
- 
- run only server
+ **npm run server**     :run only server
  
   -----------------------------------------------------
 
