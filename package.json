@@ -1,0 +1,22 @@
+{
+  "name": "tvk",
+  "version": "1.0.0",
+  "description": "project json",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.7"
+  },
+  "devDependencies": {
+  "concurrently": "^4.1.0"
+},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client" : "cd client && npm start",
+    "server" : "cd server && nodemon server.js",
+    "dev" : "concurrently \"npm run client\" \"npm run server\""
+  },
+  "author": "",
+  "license": "ISC"
+}
