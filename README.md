@@ -1,7 +1,7 @@
 # TravelVanka Website
 with Concurrently running front-back ends
 
- **go to tkv-master **
+ **go to tkv-master**
  
 **npm install**
  
@@ -11,7 +11,7 @@ with Concurrently running front-back ends
 
  -----------------------------------------------------
  
-**to start React and **
+**to start React and**
 
  **npm run dev **
  run both client and server concurrently**
@@ -21,9 +21,10 @@ with Concurrently running front-back ends
  run only client
  
  
- **npm run server ** 
+ **npm run server** 
  run only server
  
+  -----------------------------------------------------
 
  check package.json for more script details
  
