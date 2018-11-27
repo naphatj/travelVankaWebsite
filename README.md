@@ -12,5 +12,5 @@ npm run server  : run only server
 check package.json for more script details
 
 if missing modules :
-npm install -g conncurrently nodemon mysql express 
+npm install -g concurrently nodemon mysql express 
 
