@@ -1,7 +1,7 @@
 # TravelVanka Website
 with Concurrently running front-back ends
 
- **go to tkv-master**
+ **go to tvk-master**
  
 **npm install**
  
