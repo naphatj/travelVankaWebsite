@@ -1,6 +1,5 @@
 var mysql = require('mysql');
 var http = require('http');
-var nodemon = require('nodemon');
 const express = require('express');
 const app = express() ;
 const port = process.env.PORT || 5000 ;
@@ -111,14 +110,28 @@ let myDateString = yy + '-' + mm + '-' + dd + " " + hr + ":" + min + ":" + sec;
 
 app.post('/dplop/list_reservation',(req,res)=>{
     let sql = 'SELECT * FROM reservation WHERE customerID = ?';
-
     connection.query(sql , [req.body.customerID],(error , result)=>{
+      console.log(req.body.customerID);
       if(error) throw error;
       let all = JSON.parse(JSON.stringify(result));
       res.send(all);
       // res.statusCode(200) ;
     });
 });
+
+//  list_reservation bad Example
+//	VULNERABLE TO INJECTION
+//  app.post('/dplop/list_reservation',(req,res)=>{
+//     let sql = 'SELECT * FROM reservation WHERE customerID ='+"'"+req.body.customerID+"'";
+//     console.log(sql);
+//     connection.query(sql,(error , result)=>{
+//       console.log(req.body.customerID);
+//       if(error) throw error;
+//       let all = JSON.parse(JSON.stringify(result));
+//       res.send(all);
+//       // res.statusCode(200) ;
+//     });
+// });
 app.post('/dplop/cancel_reservation',(req,res)=>{
     let sql = 'DELETE FROM reservation WHERE reservationCode = ?';
     connection.query(sql , [req.body.reservationCode],(error,result)=>{
@@ -127,24 +140,25 @@ app.post('/dplop/cancel_reservation',(req,res)=>{
     });
 });
 app.post('/dplop/update_trip',(req,res)=>{
-    let sql = 'SELECT * FROM trip WHERE tripNO=?';
-      connection.query(sql,[req.body.tripNO],(error,result)=>{
+    let sql = 'SELECT * FROM trip WHERE tripNo=?';
+      connection.query(sql,[req.body.tripNo],(error,result)=>{
         if(result.length === 0) {
-          console.log('TripNO not found');
-          res.statusCode(400);
+          console.log('TripNo not found');
+          // res.statusCode(400);
           return ;
         }
-        sql = 'UPDATE trip SET deptTime = ? , arrvTime = ? WHERE tripNO=?';
-        connection.query(sql , [req.body['deptTime'],req.body['arrvTime'],req.body.tripNO],(error,result)=>{
-          res.statusCode(200);
+        let sql2 = 'UPDATE trip SET deptTime = ? , arrvTime = ? WHERE tripNo=?';
+        connection.query(sql2 , [req.body['deptTime'],req.body['arrvTime'],req.body.tripNo],(error,result)=>{
+          console.log('Change trip time complete')
+          // res.statusCode(200);
          
         });
       });
     
 });
-app.post('/dplop/list_trip',(res,req)=>{
-    let sql = 'SELECT * FROM trip WHERE '
-});
+// app.post('/dplop/list_trip',(res,req)=>{
+//     let sql = 'SELECT * FROM trip WHERE '
+// });
 
 app.post('/dplop/list_trip',(req,res)=>{
   let sql = 'select t.tripNo,s1.stationName as DeptStation, s2.stationName as ArrvStation, t.depttime,t.arrvTime,t.availSeat from   trip t, route r, station s1, station s2 WHERE  t.routeID=r.routeID and r.deptStationID=s1.stationID and r.arrvStationID=s2.stationID';
