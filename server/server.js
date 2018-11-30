@@ -160,6 +160,7 @@ app.post('/dplop/update_trip',(req,res)=>{
 //     let sql = 'SELECT * FROM trip WHERE '
 // });
 
+// (beta) doesn't work with one digit date or month
 app.post('/dplop/list_trip', (req, res) => {
 
   let date = req.body.date;
