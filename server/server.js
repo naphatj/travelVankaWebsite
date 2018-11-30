@@ -160,12 +160,33 @@ app.post('/dplop/update_trip',(req,res)=>{
 //     let sql = 'SELECT * FROM trip WHERE '
 // });
 
-app.post('/dplop/list_trip',(req,res)=>{
-  let sql = 'select t.tripNo,s1.stationName as DeptStation, s2.stationName as ArrvStation, t.depttime,t.arrvTime,t.availSeat from   trip t, route r, station s1, station s2 WHERE  t.routeID=r.routeID and r.deptStationID=s1.stationID and r.arrvStationID=s2.stationID';
-  connection.query(sql ,[req.body.routeID,req.body.deptTime,req.body.arrvTime],(error,result)=>{
-    if(error) throw error ;
+app.post('/dplop/list_trip', (req, res) => {
+
+  let date = req.body.date;
+  
+  let dd = date.substring(3,5);
+  let mm = date.substring(0,2);
+  let yy = date.substring(6,10);
+  
+  let nextdd = parseInt(dd)+1;
+  let startDate = yy+"-"+mm+"-"+dd;
+  let nextDate = yy+"-"+mm+"-"+nextdd;
+  console.log(startDate);
+  console.log(nextDate);
+
+  let sql = 'select t.tripNo,s1.stationName as deptStation, s2.stationName as arrvStation, t.deptTime,t.arrvTime,t.availSeat'+
+  ' from   trip t, route r, station s1, station s2 '+
+  ' WHERE t.routeID=r.routeID and r.deptStationID=s1.stationID and r.arrvStationID=s2.stationID'+
+  ' and t.deptTime >'+"'"+startDate+"'"+
+  ' and t.deptTime <'+"'"+nextDate+"'"+
+  ' ORDER BY t.deptTime';
+  
+  connection.query(sql, [req.body.routeID], (error, result) => {
+    console.log(sql);
+
+    if (error) throw error;
     let all = JSON.parse(JSON.stringify(result));
-    res.statusCode(200) ;
+    // res.sendStatus(200) ;
     res.send(all);
   });
 });
